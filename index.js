@@ -3,7 +3,6 @@
 var through = require('through2');
 var gutil = require('gulp-util');
 var Dropbox = require('dropbox');
-var fs = require('fs');
 var PluginError = gutil.PluginError;
 
 const PLUGIN_NAME = 'gulp-dropbox';
