@@ -1,6 +1,6 @@
 {
   "name": "gulp-dropbox",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Gulp plugin that takes a set of files and uploads to a Dropbox folder",
   "main": "index.js",
   "scripts": {
