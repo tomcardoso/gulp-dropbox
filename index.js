@@ -24,7 +24,7 @@ function gulpDropbox(options) {
 	return through.obj(dropboxUpload);
 }
 
-function dropboxUpload(file, enc, cb) {
+async function dropboxUpload(file, enc, cb) {
 	if (file.isStream()) {
 		throw new PluginError(
 			PLUGIN_NAME,
@@ -49,8 +49,9 @@ function dropboxUpload(file, enc, cb) {
 
 	var dropbox = new Dropbox({
 			accessToken: opts.token
-		})
-		.filesUpload({
+		});
+
+	await dropbox.filesUpload({
 			path: filePath,
 			contents: file.contents
 		})
@@ -64,17 +65,16 @@ function dropboxUpload(file, enc, cb) {
 					"'."
 				)
 			);
-			cb(null, file);
 		})
 		.catch(function (error) {
 			throw new PluginError(
 				PLUGIN_NAME,
 				"There was an error uploading at least one file to Dropbox. Please check your terminal."
 			);
-			cb(null, file);
 		});
 
-	return cb(null, file);
+	cb(null, file);
+	this.emit('end');
 }
 
 module.exports = gulpDropbox;
