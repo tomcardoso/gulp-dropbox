@@ -3,6 +3,7 @@
 var through = require("through2");
 var Dropbox = require("dropbox");
 var colors = require("ansi-colors");
+var path = require("path");
 var fancyLog = require('fancy-log');
 var PluginError = require("plugin-error");
 
@@ -45,7 +46,7 @@ async function dropboxUpload(file, enc, cb) {
 	var replacePattern =
 		opts.folder === "" ? opts.path : opts.path + "/" + opts.folder;
 
-	var filePath = file.path.replace(file.base, replacePattern + "/");
+	var filePath = path.resolve(file.path.replace(file.base, replacePattern + "/"));
 
 	var dropbox = new Dropbox({
 			accessToken: opts.token
