@@ -51,7 +51,10 @@ async function dropboxUpload(file, enc, cb) {
 	var dropbox = new Dropbox({
 			accessToken: opts.token
 		});
-
+		
+	// Hold onto this instance for use in the promise below
+	var self = this;
+	
 	await dropbox.filesUpload({
 			path: filePath,
 			contents: file.contents
@@ -66,16 +69,17 @@ async function dropboxUpload(file, enc, cb) {
 					"'."
 				)
 			);
+			self.emit('end');
 		})
-		.catch(function (error) {
-			throw new PluginError(
+		.catch(function (err) {
+			var pluginError = new PluginError(
 				PLUGIN_NAME,
-				"There was an error uploading at least one file to Dropbox. Please check your terminal."
+				err.error
 			);
+			self.emit('error', pluginError);
 		});
 
 	cb(null, file);
-	this.emit('end');
 }
 
 module.exports = gulpDropbox;
