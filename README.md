@@ -14,7 +14,7 @@ gulp-dropbox takes an options object with three things:
 * **path**: The base path within Dropbox you want to write to. Defaults to `/` otherwise *(optional)*
 * **folder**: Subfolder you want to write everything to *(optional)*
 
-```
+```js
 var gulp = require('gulp'),
     gulpDropbox = require('gulp-dropbox');
 
@@ -30,7 +30,7 @@ gulp.task('deploy', function() {
 
 Protip: If you want to exclude files specified in your `.gitignore` from your pattern, use something like [gulp-gitignore](https://www.npmjs.com/package/gulp-gitignore):
 
-```
+```js
 var gulp = require('gulp'),
     gulpDropbox = require('gulp-dropbox'),
     gitignore = require('gulp-gitignore');
@@ -45,10 +45,6 @@ gulp.task('deploy', function() {
     }));
   });
 ```
-
-### Todo
-
-Write tests (yeah…)
 
 ### License
 
